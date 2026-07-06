@@ -15,6 +15,8 @@ Start by building a map:
 
 Then only read the code that matters.
 
+If an agent already produced a plan, trace, recap, or diagram, treat that as a first-class review surface instead of jumping straight to the raw diff.
+
 ## Low-Stakes Repo Workflow
 
 Use this when:
@@ -75,6 +77,13 @@ Get a decent map fast without pretending to fully understand every subsystem.
    - retries
    - async jobs
    - approval flows
+
+8. Prefer artifacts over prose walls.
+   - architecture recap
+   - wiring diagram
+   - state machine
+   - short invariants list
+   - reasoning tree if the model kept revising itself
 
 ### Output You Want
 
@@ -147,12 +156,23 @@ Reduce the chance of missing a dangerous dependency or violating an architectura
    - Builder-style visual recap
    - or a manual architecture diff or subsystem recap
 
-7. Dogfood or simulate the real path.
+7. Treat agent traces as a review surface when available.
+   - inspect the plan
+   - inspect the recap
+   - inspect where the model changed course
+   - inspect the revision path before deciding whether raw line-by-line reading is still necessary
+
+8. Dogfood or simulate the real path.
    - follow a concrete user flow
    - run E2E or integration tests
    - compare expected path vs actual path
 
-8. Preserve what you learned.
+9. Enforce final-artifact hygiene.
+   - final docs should not mention invisible prior drafts
+   - comments should describe what is true now, not what used to be true
+   - process artifacts and reader-facing artifacts should stay separate
+
+10. Preserve what you learned.
    - write or update ADRs
    - keep diagrams near the project
    - save review artifacts if they explain important boundaries
@@ -185,12 +205,14 @@ You should be able to answer:
 
 - "Make a state machine diagram of this component, including error paths and retries."
 - "Turn this pipeline into a wiring diagram so I can see the typed flow between steps."
+- "Turn this reasoning trace into a tree of pivots, dead ends, and revised assumptions."
 
 ### For risky changes
 
 - "Show me the blast radius if this interface changes."
 - "List the invariants this subsystem relies on."
 - "Give me a visual recap of what changed architecturally, not just line-by-line code diff."
+- "Rewrite this explanation for a final reader with no breadcrumbs from prior drafts."
 
 ## Best Tool Fits
 
@@ -221,5 +243,6 @@ The better move is:
 - inspect the map
 - inspect the boundaries
 - inspect the flow
+- inspect the artifact
 - inspect the blast radius
 - then read the critical code
