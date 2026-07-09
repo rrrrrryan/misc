@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>A Living Glossary of UI &amp; Design Terms</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='22'%20fill='%23c1735a'/%3E%3Cg%20fill='%23fff7ee'%3E%3Crect%20x='24'%20y='40'%20width='12'%20height='12'/%3E%3Crect%20x='64'%20y='40'%20width='12'%20height='12'/%3E%3Crect%20x='30'%20y='62'%20width='40'%20height='9'%20rx='4'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  :root{
+    --font: ui-sans-serif, -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --bg:#f3efe7; --bg2:#eae3d6; --glow1:rgba(193,115,90,.13); --glow2:rgba(212,165,116,.16);
+    --card:#fffdf8; --card2:#faf5ec; --card-h:#f6efe2;
+    --ink:#2c2822; --muted:#7d7365; --faint:#a99d8c;
+    --line:#e8e0d1; --line2:#d9cdb9;
+    --accent:#bf6f55; --accent-ink:#9c4f34; --accent-soft:#f2e3da;
+    --good:#5c8a5a; --warn:#b6823a; --bad:#b5654e;
+    --m-body:#c1735a; --m-hi:#d98d6b; --m-lo:#a3543c; --m-eye:#33261f; --m-spark:#fff6ec;
+    --shadow:0 1px 2px rgba(60,44,30,.05), 0 8px 24px -12px rgba(60,44,30,.22);
+    --shadow-sm:0 1px 2px rgba(60,44,30,.06);
+  }
+  :root[data-theme="dark"]{
+    --bg:#1e1c19; --bg2:#171512; --glow1:rgba(207,125,97,.14); --glow2:rgba(150,110,70,.12);
+    --card:#282520; --card2:#2f2b25; --card-h:#332e27;
+    --ink:#ece6db; --muted:#a89d8d; --faint:#746b5d;
+    --line:#38332c; --line2:#4a443b;
+    --accent:#e0906f; --accent-ink:#eaa385; --accent-soft:rgba(224,144,111,.15);
+    --good:#7fae7c; --warn:#d0a05f; --bad:#d98b72;
+    --m-body:#cf7d61; --m-hi:#e2a487; --m-lo:#a85940; --m-eye:#1b1310; --m-spark:#fff6ec;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1e1c19; --bg2:#171512; --glow1:rgba(207,125,97,.14); --glow2:rgba(150,110,70,.12);
+      --card:#282520; --card2:#2f2b25; --card-h:#332e27;
+      --ink:#ece6db; --muted:#a89d8d; --faint:#746b5d;
+      --line:#38332c; --line2:#4a443b;
+      --accent:#e0906f; --accent-ink:#eaa385; --accent-soft:rgba(224,144,111,.15);
+      --good:#7fae7c; --warn:#d0a05f; --bad:#d98b72;
+      --m-body:#cf7d61; --m-hi:#e2a487; --m-lo:#a85940; --m-eye:#1b1310; --m-spark:#fff6ec;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:var(--font); font-size:15px; line-height:1.55; color:var(--ink);
+    background:
+      radial-gradient(1100px 620px at 12% -8%, var(--glow1), transparent 60%),
+      radial-gradient(1000px 700px at 112% 6%, var(--glow2), transparent 55%),
+      var(--bg);
+    background-attachment:fixed; -webkit-font-smoothing:antialiased;}
+  a{color:var(--accent-ink);}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 22px;}
+
+  /* header */
+  header.top{padding:56px 0 20px; display:flex; gap:22px; align-items:center;}
+  .mascot{flex:none; filter:drop-shadow(0 6px 10px rgba(120,60,30,.18));}
+  .mascot rect{transform-box:fill-box; transform-origin:center;}
+  .m-bob{transform-box:fill-box; transform-origin:center bottom; animation:m-bob 2.6s ease-in-out infinite;}
+  .m-eye{animation:m-blink 4.6s infinite;} .m-spark{animation:m-tw 2.9s ease-in-out infinite;}
+  .m-leg-0{animation:m-legA 1.15s ease-in-out infinite;} .m-leg-1{animation:m-legB 1.15s ease-in-out infinite;}
+  @keyframes m-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6%)}}
+  @keyframes m-blink{0%,93%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.1)}}
+  @keyframes m-tw{0%,100%{opacity:.3;transform:scale(.65)}50%{opacity:1;transform:scale(1)}}
+  @keyframes m-legA{0%,100%{transform:translateY(0)}50%{transform:translateY(16%)}}
+  @keyframes m-legB{0%,100%{transform:translateY(16%)}50%{transform:translateY(0)}}
+  h1{margin:0; font-size:30px; font-weight:680; letter-spacing:-.02em; line-height:1.1;}
+  h1 .dim{color:var(--faint); font-weight:600;}
+  .lede{margin:9px 0 0; font-size:14px; color:var(--muted); max-width:64ch;}
+
+  .theme{margin-left:auto; align-self:flex-start; display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 13px;
+    font:inherit; font-size:13px; color:var(--muted); background:var(--card); border:1px solid var(--line2); border-radius:9px; cursor:pointer; box-shadow:var(--shadow-sm);}
+  .theme:hover{color:var(--ink); border-color:var(--accent);}
+
+  /* section nav */
+  nav.toc{position:sticky; top:0; z-index:30; margin:6px 0 0; padding:11px 0; display:flex; flex-wrap:wrap; gap:7px;
+    background:color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line);}
+  nav.toc a{font-size:12.5px; color:var(--muted); text-decoration:none; padding:5px 11px; border-radius:999px; border:1px solid var(--line2); background:var(--card);}
+  nav.toc a:hover{color:var(--accent-ink); border-color:var(--accent);}
+
+  section{margin:40px 0 0;}
+  h2.sec{margin:0 0 3px; font-size:19px; font-weight:660; letter-spacing:-.01em; display:flex; align-items:baseline; gap:10px;}
+  h2.sec .n{font-size:12px; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .sec-sub{margin:0 0 16px; font-size:13px; color:var(--faint);}
+
+  .entries{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px;}
+  .entry{background:var(--card); border:1px solid var(--line); border-radius:15px; box-shadow:var(--shadow); padding:16px; display:flex; flex-direction:column;}
+  .entry.wide{grid-column:1/-1;}
+  @media(min-width:720px){ .entry.w2{grid-column:span 2;} }
+  .term{font-size:15px; font-weight:660; letter-spacing:-.01em;}
+  .term .aka{font-weight:500; color:var(--faint); font-size:12.5px;}
+  .def{margin:5px 0 0; font-size:13px; color:var(--muted); line-height:1.5;}
+  .demo{margin-top:13px; background:var(--bg2); border:1px solid var(--line2); border-radius:11px; padding:15px; position:relative; flex:1;
+    display:flex; flex-direction:column; justify-content:center; gap:10px; min-height:74px;}
+  /* one gentle "try me" nudge on a chip near the top — stops once you interact */
+  .invite{animation:invite 3.4s ease-in-out infinite;}
+  .chip.invite{border-color:var(--accent);}
+  @keyframes invite{0%,84%,100%{transform:rotate(0)} 88%{transform:rotate(-4deg)} 91%{transform:rotate(3.5deg)} 94%{transform:rotate(-2.5deg)} 97%{transform:rotate(1.5deg)}}
+  .demo .lbl{font-size:11px; color:var(--faint); text-transform:uppercase; letter-spacing:.05em;}
+  .row{display:flex; align-items:center; gap:9px; flex-wrap:wrap;}
+  .col{display:flex; flex-direction:column; gap:9px;}
+
+  /* ---- primitives reused in demos ---- */
+  .badge{display:inline-flex; align-items:center; gap:5px; height:20px; min-width:20px; justify-content:center; padding:0 6px; font-size:11px; font-weight:600; color:#fff; background:var(--accent); border-radius:999px;}
+  .badge.dot{width:9px; height:9px; min-width:0; padding:0; background:var(--good);}
+  .pill{display:inline-flex; align-items:center; height:24px; padding:0 11px; font-size:12px; color:var(--muted); background:var(--card2); border:1px solid var(--line); border-radius:999px;}
+  .rect{display:inline-flex; align-items:center; height:24px; padding:0 11px; font-size:12px; color:var(--muted); background:var(--card2); border:1px solid var(--line); border-radius:3px;}
+  .chip{display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 6px 0 11px; font-size:12.5px; color:var(--ink); background:var(--card2); border:1px solid var(--line2); border-radius:999px; cursor:pointer; user-select:none; transition:background .12s,border-color .12s;}
+  .chip[aria-pressed="true"]{background:var(--accent-soft); border-color:transparent; color:var(--accent-ink); font-weight:600;}
+  .chip .x{display:inline-flex; width:16px; height:16px; align-items:center; justify-content:center; border-radius:50%; color:var(--faint); font-size:13px;}
+  .chip .x:hover{background:var(--line2); color:var(--ink);}
+  .chip.removable{padding-right:5px;}
+  .tag{display:inline-flex; align-items:center; height:20px; padding:0 8px; font-size:11.5px; border-radius:5px;}
+  .btn{display:inline-flex; align-items:center; gap:7px; height:32px; padding:0 13px; font:inherit; font-size:13px; color:var(--ink); background:var(--card); border:1px solid var(--line2); border-radius:8px; cursor:pointer; transition:transform .08s, background .12s, border-color .12s, box-shadow .12s;}
+  .btn:hover{background:var(--card-h); border-color:var(--accent);}
+  .btn:active{transform:translateY(1px);}
+  .btn.primary{background:var(--accent); color:#fff; border-color:transparent;}
+  .btn.primary:hover{background:var(--accent-ink);}
+
+  /* segmented control */
+  .seg{display:inline-flex; background:var(--card); border:1px solid var(--line2); border-radius:9px; overflow:hidden; box-shadow:var(--shadow-sm);}
+  .seg button{height:32px; padding:0 13px; font:inherit; font-size:13px; color:var(--muted); background:transparent; border:0; cursor:pointer;}
+  .seg button+button{border-left:1px solid var(--line);}
+  .seg button[aria-pressed="true"]{background:var(--accent-soft); color:var(--accent-ink); font-weight:600;}
+
+  /* disclosure / accordion */
+  details.disc{border:1px solid var(--line2); border-radius:10px; background:var(--card); overflow:hidden;}
+  details.disc summary{cursor:pointer; padding:9px 13px; font-size:13px; color:var(--ink); list-style:none; display:flex; align-items:center; gap:8px;}
+  details.disc summary::-webkit-details-marker{display:none;}
+  details.disc summary::before{content:"\25b8"; color:var(--faint); font-size:10px; transition:transform .12s;}
+  details.disc[open] summary::before{transform:rotate(90deg);}
+  details.disc .body{padding:2px 14px 12px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--line);}
+  .acc details.disc{border-radius:0;} .acc details.disc:first-child{border-radius:10px 10px 0 0;}
+  .acc details.disc:last-child{border-radius:0 0 10px 10px;} .acc details.disc+details.disc{border-top:0;}
+
+  /* toolbar */
+  .toolbar{display:flex; align-items:center; gap:8px; width:100%; padding:8px; background:var(--card); border:1px solid var(--line2); border-radius:10px; box-shadow:var(--shadow-sm);}
+  .toolbar input{flex:1; min-width:60px; height:30px; border:1px solid var(--line); border-radius:7px; background:var(--card2); padding:0 10px; font:inherit; font-size:13px; color:var(--ink);}
+  .icon-btn{width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--line2); border-radius:7px; background:var(--card); cursor:pointer; color:var(--muted);}
+  .icon-btn:hover{color:var(--accent-ink); border-color:var(--accent);}
+  .icon-btn svg{width:15px; height:15px;}
+
+  /* card / surface / elevation */
+  .mini-card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px; box-shadow:var(--shadow); font-size:13px;}
+  .elev{display:flex; gap:12px; flex-wrap:wrap;}
+  .elev .e{width:72px; height:56px; border-radius:10px; background:var(--card); border:1px solid var(--line); display:flex; align-items:flex-end; justify-content:center; font-size:10px; color:var(--faint); padding-bottom:5px;}
+  .e.e0{box-shadow:none;}
+  .e.e1{box-shadow:0 1px 2px rgba(60,44,30,.10);}
+  .e.e2{box-shadow:0 4px 10px -4px rgba(60,44,30,.28);}
+  .e.e3{box-shadow:0 12px 26px -8px rgba(60,44,30,.36);}
+  :root[data-theme="dark"] .e.e1{box-shadow:0 1px 3px rgba(0,0,0,.5);}
+  :root[data-theme="dark"] .e.e2{box-shadow:0 5px 12px -4px rgba(0,0,0,.6);}
+  :root[data-theme="dark"] .e.e3{box-shadow:0 14px 30px -8px rgba(0,0,0,.7);}
+
+  /* avatar */
+  .avatar{width:36px; height:36px; border-radius:11px; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-weight:680; font-size:15px; box-shadow:inset 0 -2px 4px rgba(0,0,0,.14);}
+
+  /* breadcrumb */
+  .crumbs{display:flex; align-items:center; gap:7px; font-size:13px; color:var(--muted); flex-wrap:wrap;}
+  .crumbs a{text-decoration:none;} .crumbs .sep{color:var(--faint);}
+  .crumbs .here{color:var(--ink); font-weight:600;}
+
+  /* tooltip (pure CSS) */
+  .tip{position:relative; border-bottom:1px dashed var(--faint); cursor:help;}
+  .tip .bubble{position:absolute; bottom:135%; left:50%; transform:translateX(-50%) translateY(4px); opacity:0; pointer-events:none;
+    background:var(--ink); color:var(--bg); font-size:11.5px; padding:5px 9px; border-radius:7px; white-space:nowrap; transition:opacity .14s, transform .14s;}
+  .tip .bubble::after{content:""; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--ink);}
+  .tip:hover .bubble, .tip:focus .bubble{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* popover */
+  .pop-wrap{position:relative; display:inline-block;}
+  .popover{position:absolute; top:120%; left:0; width:210px; background:var(--card); border:1px solid var(--line2); border-radius:11px; box-shadow:var(--shadow); padding:12px; font-size:12.5px; color:var(--muted); z-index:5; display:none;}
+  .popover.open{display:block; animation:pop .14s ease-out;}
+  @keyframes pop{from{opacity:0; transform:translateY(-4px)} to{opacity:1; transform:translateY(0)}}
+
+  /* toast */
+  .toast{position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(140%); z-index:60;
+    background:var(--ink); color:var(--bg); padding:11px 16px; border-radius:10px; font-size:13px; box-shadow:0 10px 30px -8px rgba(0,0,0,.4); transition:transform .3s cubic-bezier(.2,.8,.2,1);}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+
+  /* layout demos */
+  .frame{border:1px dashed var(--line2); border-radius:10px; overflow:hidden; background:var(--card);}
+  .bleed-top{height:26px; background:linear-gradient(90deg,var(--accent),var(--m-hi)); display:flex; align-items:center; padding-left:12px; color:#fff; font-size:11px;}
+  .inset-top{height:26px; margin:8px; border-radius:6px; background:linear-gradient(90deg,var(--accent),var(--m-hi)); display:flex; align-items:center; padding-left:12px; color:#fff; font-size:11px;}
+  .gutter-demo{display:grid; grid-template-columns:1fr; }
+  .gutter-demo .g{background:repeating-linear-gradient(45deg,var(--accent-soft),var(--accent-soft) 6px,transparent 6px,transparent 12px);}
+  .rail-demo{display:grid; grid-template-columns:44px 1fr; gap:8px; height:90px;}
+  .rail-demo .rail{background:var(--card); border:1px solid var(--line2); border-radius:8px; display:flex; flex-direction:column; align-items:center; padding-top:8px; gap:8px;}
+  .rail-demo .rail .d{width:18px; height:18px; border-radius:6px; background:var(--accent-soft);}
+  .rail-demo .main{background:var(--card2); border:1px solid var(--line); border-radius:8px;}
+  .measure{font-size:12.5px; color:var(--ink); line-height:1.5;}
+  .measure.good{max-width:60ch;} .measure.bad{max-width:none;}
+  .scrollbox{height:120px; overflow:auto; border:1px solid var(--line2); border-radius:10px; background:var(--card);}
+  .scrollbox .sticky-h{position:sticky; top:0; background:var(--accent-soft); color:var(--accent-ink); font-weight:600; font-size:12px; padding:8px 12px; border-bottom:1px solid var(--line2);}
+  .scrollbox .rowline{padding:8px 12px; font-size:12.5px; border-bottom:1px solid var(--line); color:var(--muted);}
+  .fold{position:relative; height:120px; border:1px solid var(--line2); border-radius:10px; overflow:hidden; background:var(--card);}
+  .fold .content{padding:12px; font-size:12.5px; color:var(--muted);}
+  .fold .foldline{position:absolute; left:0; right:0; top:64px; border-top:2px dashed var(--accent); }
+  .fold .foldlabel{position:absolute; right:8px; top:66px; font-size:10px; color:var(--accent-ink); background:var(--card); padding:0 5px;}
+
+  /* density */
+  .dlist .di{display:flex; justify-content:space-between; border-bottom:1px solid var(--line); font-size:12.5px; color:var(--ink);}
+  .dlist.comfortable .di{padding:10px 4px;} .dlist.compact .di{padding:3px 4px;}
+
+  /* stacking */
+  .stack{position:relative; height:80px;}
+  .stack .s{position:absolute; width:74px; height:56px; border-radius:10px; border:1px solid var(--line2); box-shadow:var(--shadow); display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--muted);}
+  .stack .s1{left:0; top:8px; background:var(--card2); z-index:1;}
+  .stack .s2{left:34px; top:18px; background:var(--card); z-index:2;}
+  .stack .s3{left:68px; top:4px; background:var(--accent-soft); color:var(--accent-ink); z-index:3;}
+
+  /* typography demos */
+  .scale .s{display:flex; align-items:baseline; gap:10px;} .scale .s .px{width:34px; font-size:10px; color:var(--faint); font-variant-numeric:tabular-nums; text-align:right;}
+  .lead-cols{display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:11.5px; color:var(--ink);}
+  .lead-cols .t{font-weight:600; font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;}
+  .lead-tight{line-height:1.05;} .lead-loose{line-height:1.9;}
+  .trk .t{font-size:10px; color:var(--faint); width:60px; display:inline-block;}
+  .kern{font-family:var(--serif); font-size:40px; font-weight:600;}
+  .kern .on{font-feature-settings:"kern" 1; letter-spacing:0;}
+  .kern .off{font-feature-settings:"kern" 0; letter-spacing:.04em;}
+  .hier .flat *{font-size:13px; font-weight:400; color:var(--ink); margin:0;}
+  .hier .good .h{font-size:16px; font-weight:680; letter-spacing:-.01em;}
+  .hier .good .sub{font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--faint); margin:1px 0 5px;}
+  .hier .good .p{font-size:12.5px; color:var(--muted);}
+  .caps .a{font-size:13px; color:var(--ink);} .caps .b{font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted);}
+  .nums{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .nums .t{font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;}
+  .nums ol{margin:0; padding:0; list-style:none; font-family:var(--mono); font-size:13px;}
+  .nums .prop{font-variant-numeric:proportional-nums;} .nums .tab{font-variant-numeric:tabular-nums;}
+  .wordmark{font-family:var(--serif); font-size:26px; font-weight:700; letter-spacing:-.01em; color:var(--ink);}
+  .wordmark .d{color:var(--accent);}
+  .widow{font-size:12.5px; color:var(--ink); max-width:30ch; line-height:1.5;}
+  .widow .w{background:var(--accent-soft); color:var(--accent-ink); border-radius:3px; padding:0 3px;}
+
+  /* color demos */
+  .sw{display:flex; gap:0; border-radius:9px; overflow:hidden; border:1px solid var(--line2);}
+  .sw .c{flex:1; height:52px; display:flex; align-items:flex-end; justify-content:center; font-size:9.5px; padding-bottom:4px; color:rgba(255,255,255,.9);}
+  .swatch-row{display:flex; gap:10px; flex-wrap:wrap;}
+  .swatch{display:flex; flex-direction:column; gap:5px; align-items:center; font-size:10px; color:var(--muted);}
+  .swatch .b{width:46px; height:46px; border-radius:10px; border:1px solid rgba(0,0,0,.08);}
+  .sem{display:flex; gap:8px; flex-wrap:wrap;}
+  .sem .s{display:inline-flex; align-items:center; gap:6px; font-size:12px; padding:4px 10px; border-radius:8px;}
+  .sem .ok{color:var(--good); background:color-mix(in srgb,var(--good) 15%,transparent);}
+  .sem .no{color:var(--bad); background:color-mix(in srgb,var(--bad) 15%,transparent);}
+  .sem .wn{color:var(--warn); background:color-mix(in srgb,var(--warn) 16%,transparent);}
+  .contrast .good{color:#3a332c;} .contrast .bad{color:#c9bdaa;}
+  .contrast .line{font-size:14px; font-weight:500;} .contrast .r{font-size:10px; color:var(--faint); font-family:var(--mono);}
+  :root[data-theme="dark"] .contrast .good{color:#efe7db;} :root[data-theme="dark"] .contrast .bad{color:#4a443b;}
+  .inkrow{display:flex; flex-direction:column; gap:3px;}
+  .inkrow .ink{color:var(--ink);} .inkrow .mut{color:var(--muted);} .inkrow .fnt{color:var(--faint);}
+  .wash{border-radius:9px; padding:10px 12px; font-size:12.5px;}
+  .wash.on{background:var(--accent-soft); color:var(--accent-ink);}
+  .wash.off{background:var(--card); border:1px solid var(--line); color:var(--muted);}
+
+  /* motion demos */
+  .like{width:42px; height:42px; border-radius:50%; border:1px solid var(--line2); background:var(--card); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; font-size:18px; transition:transform .12s;}
+  .like:active{transform:scale(.86);}
+  .like.on{background:var(--accent-soft); border-color:transparent;}
+  .like.pop{animation:heart .4s ease;}
+  @keyframes heart{0%{transform:scale(1)}35%{transform:scale(1.35)}70%{transform:scale(.92)}100%{transform:scale(1)}}
+  .track{position:relative; height:16px; background:var(--card); border:1px solid var(--line); border-radius:999px;}
+  .track .dot{position:absolute; top:2px; left:2px; width:10px; height:10px; border-radius:50%; background:var(--accent);}
+  .track .dot.linear{animation:slide 2.4s linear infinite alternate;}
+  .track .dot.eased{animation:slide 2.4s cubic-bezier(.5,0,.2,1) infinite alternate;}
+  @keyframes slide{from{left:2px} to{left:calc(100% - 12px)}}
+  .hoverbox{width:100%; height:44px; border-radius:9px; background:var(--card2); border:1px solid var(--line2); display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--muted); transition:background .3s, transform .3s, color .3s;}
+  .hoverbox:hover{background:var(--accent); color:#fff; transform:translateY(-3px);}
+  .spinner{width:26px; height:26px; border-radius:50%; border:3px solid var(--line2); border-top-color:var(--accent); animation:spin 1s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .stagger{display:flex; gap:6px; align-items:flex-end; height:52px;}
+  .stagger .bar{width:16px; border-radius:5px 5px 0 0; background:var(--accent); height:12px;}
+  .stagger.go .bar{animation:grow .5s ease both;}
+  .stagger.go .bar:nth-child(1){animation-delay:0s} .stagger.go .bar:nth-child(2){animation-delay:.08s}
+  .stagger.go .bar:nth-child(3){animation-delay:.16s} .stagger.go .bar:nth-child(4){animation-delay:.24s}
+  .stagger.go .bar:nth-child(5){animation-delay:.32s} .stagger.go .bar:nth-child(6){animation-delay:.4s}
+  @keyframes grow{from{height:6px; opacity:.3} to{opacity:1}}
+  .stagger .bar:nth-child(1){height:20px}.stagger .bar:nth-child(2){height:36px}.stagger .bar:nth-child(3){height:28px}
+  .stagger .bar:nth-child(4){height:48px}.stagger .bar:nth-child(5){height:32px}.stagger .bar:nth-child(6){height:22px}
+
+  /* icons */
+  .icons{display:flex; gap:16px; align-items:center;}
+  .ic{display:flex; flex-direction:column; align-items:center; gap:5px; font-size:10px; color:var(--faint);}
+  .ic svg{width:26px; height:26px;}
+
+  /* grid system */
+  .gridcols{display:grid; grid-template-columns:repeat(12,1fr); gap:6px; width:100%;}
+  .gridcols span{height:8px; background:var(--line2); border-radius:3px; opacity:.55;}
+  .gridsys{display:grid; grid-template-columns:repeat(12,1fr); gap:6px; width:100%;}
+  .gridsys .cell{background:var(--accent-soft); color:var(--accent-ink); border-radius:5px; font-size:10px; font-weight:600; text-align:center; padding:6px 0; font-variant-numeric:tabular-nums;}
+  .gridsys .c12{grid-column:span 12;} .gridsys .c8{grid-column:span 8;} .gridsys .c6{grid-column:span 6;} .gridsys .c4{grid-column:span 4;} .gridsys .c3{grid-column:span 3;}
+
+  /* states: skeleton, empty, error */
+  .state-body{width:100%; min-height:80px; background:var(--card); border:1px solid var(--line); border-radius:11px; padding:14px; display:flex; align-items:center; justify-content:center; text-align:center;}
+  .skel{display:flex; flex-direction:column; gap:9px; width:100%;}
+  .skel .ln{height:11px; border-radius:6px; background:linear-gradient(90deg,var(--line) 25%,var(--card-h) 40%,var(--line) 60%); background-size:300% 100%; animation:shimmer 1.4s ease-in-out infinite;}
+  .skel .ln.w1{width:68%} .skel .ln.w2{width:92%} .skel .ln.w3{width:52%}
+  @keyframes shimmer{0%{background-position:150% 0} 100%{background-position:-150% 0}}
+  .state-empty{color:var(--muted); font-size:12.5px;} .state-empty .ic{font-size:22px; display:block; margin-bottom:5px; opacity:.6;}
+  .state-error{color:var(--bad); font-size:12.5px;} .state-error .ic{font-size:20px; display:block; margin-bottom:5px;}
+
+  /* optimistic UI */
+  .opt{display:flex; align-items:center; gap:10px; width:100%;}
+  .opt .star{cursor:pointer; font-size:20px; width:40px; height:40px; border-radius:10px; border:1px solid var(--line2); background:var(--card); display:inline-flex; align-items:center; justify-content:center; color:var(--accent); transition:transform .1s, background .15s, border-color .15s;}
+  .opt .star.on{background:var(--accent-soft); border-color:transparent;}
+  .opt .star:active{transform:scale(.88);}
+  .opt .n{font-variant-numeric:tabular-nums; font-size:14px; color:var(--ink); font-weight:600; min-width:22px;}
+  .opt .status{font-size:11.5px; color:var(--faint);}
+  .opt .status.saving{color:var(--warn);} .opt .status.saved{color:var(--good);} .opt .status.failed{color:var(--bad);}
+
+  /* focus ring */
+  .focusdemo{display:flex; gap:10px; flex-wrap:wrap;}
+  .focusdemo input,.focusdemo button{font:inherit; font-size:13px; height:34px; border-radius:8px; border:1px solid var(--line2); background:var(--card); color:var(--ink); padding:0 12px; outline:none;}
+  .focusdemo button{cursor:pointer; background:var(--accent); color:#fff; border-color:transparent;}
+  .focusdemo :focus-visible{outline:3px solid var(--accent); outline-offset:2px;}
+  kbd{font-family:var(--mono); font-size:.82em; background:var(--card2); border:1px solid var(--line2); border-bottom-width:2px; border-radius:5px; padding:.05em .4em;}
+
+  footer{max-width:1080px; margin:0 auto; padding:34px 22px 70px; font-size:12.5px; color:var(--faint);}
+  code{font-family:var(--mono); font-size:.85em; background:var(--card2); border:1px solid var(--line); padding:.05em .35em; border-radius:5px;}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <svg class="mascot" id="mascot" width="128" height="108" viewBox="0 0 128 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+    <div class="hgroup">
+      <h1>A living glossary <span class="dim">of UI &amp; design terms</span></h1>
+      <p class="lede">Every term shown as a real, working example — hover it, click it, watch it move. Built in the same Claude Code palette as your session browser. <b id="count"></b></p>
+    </div>
+    <button class="theme" id="theme">◐ Theme</button>
+  </header>
+
+  <nav class="toc">
+    <a href="#components">Components &amp; chrome</a>
+    <a href="#layout">Layout &amp; spacing</a>
+    <a href="#states">States &amp; patterns</a>
+    <a href="#type">Typography</a>
+    <a href="#color">Color &amp; surface</a>
+    <a href="#motion">Motion</a>
+    <a href="#icons">Iconography</a>
+  </nav>
+</div>
+
+<main class="wrap">
+
+<!-- ============ COMPONENTS ============ -->
+<section id="components">
+  <h2 class="sec">Components &amp; chrome <span class="n">the reusable pieces</span></h2>
+  <p class="sec-sub">The named parts an interface is assembled from.</p>
+  <div class="entries">
+
+    <div class="entry">
+      <div class="term">Badge</div>
+      <p class="def">A small marker attached to an element to show status or a count.</p>
+      <div class="demo"><div class="row"><span class="badge">3</span><span class="badge">PR</span><span class="row" style="gap:6px">Online <span class="badge dot"></span></span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Pill <span class="aka">— a shape, not a role</span></div>
+      <p class="def">A fully-rounded rectangle (radius ≈ half its height). "Pill badge" = a badge drawn as a pill.</p>
+      <div class="demo"><div class="row"><span class="pill">pill</span><span class="rect">rectangle</span><span class="lbl">same content, two shapes</span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Chip</div>
+      <p class="def">A compact, interactive token for a choice or entity — often selectable or removable.</p>
+      <div class="demo">
+        <div class="row" id="chipToggle"><span class="lbl">selectable:</span>
+          <span class="chip" role="button" aria-pressed="true">All</span>
+          <span class="chip invite" role="button" aria-pressed="false">With PR</span>
+          <span class="chip" role="button" aria-pressed="false">Worktrees</span>
+        </div>
+        <div class="row" id="chipRemove"><span class="lbl">removable:</span>
+          <span class="chip removable">fable-5 <span class="x">×</span></span>
+          <span class="chip removable">opus-4.8 <span class="x">×</span></span>
+          <span class="chip removable">haiku <span class="x">×</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Tag</div>
+      <p class="def">A label that categorizes an item. Color often encodes the category.</p>
+      <div class="demo"><div class="row">
+        <span class="tag" style="background:var(--accent-soft);color:var(--accent-ink)">design</span>
+        <span class="tag" style="background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)">shipped</span>
+        <span class="tag" style="background:var(--card2);color:var(--muted);border:1px solid var(--line)">draft</span>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Segmented control</div>
+      <p class="def">2–5 mutually-exclusive options in one track; picking one deselects the rest.</p>
+      <div class="demo"><div class="seg" id="seg">
+        <button aria-pressed="true">Recent</button><button aria-pressed="false">Oldest</button><button aria-pressed="false">Costliest</button>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Disclosure</div>
+      <p class="def">A control that shows/hides one section of content on toggle.</p>
+      <div class="demo"><details class="disc"><summary>Tool call · Bash</summary><div class="body">ls ~/.claude/projects — reveals the hidden detail when you click.</div></details></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Accordion</div>
+      <p class="def">A stack of disclosures where opening one collapses the others.</p>
+      <div class="demo"><div class="acc" id="acc">
+        <details class="disc"><summary>Overview</summary><div class="body">Opening a panel closes its siblings.</div></details>
+        <details class="disc"><summary>Details</summary><div class="body">Only one section is open at a time.</div></details>
+        <details class="disc"><summary>More</summary><div class="body">Great for FAQs and settings.</div></details>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Toolbar</div>
+      <p class="def">A band grouping the actions and controls for the view below it.</p>
+      <div class="demo"><div class="toolbar">
+        <input placeholder="Search…">
+        <span class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></span>
+        <span class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg></span>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Card</div>
+      <p class="def">A self-contained container that groups related content and lifts off the background.</p>
+      <div class="demo"><div class="mini-card"><b>paper-explorer</b><div style="color:var(--muted);font-size:12px;margin-top:3px">26 sessions · $261</div></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Surface &amp; elevation</div>
+      <p class="def">A surface is any plane content sits on; elevation is how high it floats, shown by shadow.</p>
+      <div class="demo"><div class="elev"><div class="e e0">0</div><div class="e e1">1</div><div class="e e2">2</div><div class="e e3">3</div></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Avatar</div>
+      <p class="def">A small graphic identifying a person, repo, or account.</p>
+      <div class="demo"><div class="row">
+        <span class="avatar" style="background:#bf6f55">L</span>
+        <span class="avatar" style="background:#7d8a4e">P</span>
+        <span class="avatar" style="background:#6a7bb0">B</span>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Breadcrumb</div>
+      <p class="def">A trail showing where an item sits in a hierarchy, letting you jump back up.</p>
+      <div class="demo"><div class="crumbs"><a href="#">Sessions</a><span class="sep">›</span><a href="#">learning</a><span class="sep">›</span><span class="here">Jul 8</span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Affordance</div>
+      <p class="def">A visual cue signaling how something can be used. Hover — the button <em>invites</em> the click.</p>
+      <div class="demo"><div class="row"><button class="btn primary">Hover me</button><span class="lbl">shape, shadow &amp; hover say "clickable"</span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Tooltip</div>
+      <p class="def">A small label that appears on hover to explain an element.</p>
+      <div class="demo"><div class="row">Hover the <span class="tip" tabindex="0">dotted term<span class="bubble">This is a tooltip</span></span> to see it.</div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Popover</div>
+      <p class="def">A floating panel with richer content, opened by a click (unlike a hover tooltip).</p>
+      <div class="demo"><div class="pop-wrap"><button class="btn" id="popBtn">Open popover ▾</button>
+        <div class="popover" id="pop"><b style="color:var(--ink)">Resume session</b><br>Copy the ID and run <code>claude --resume</code> anywhere.</div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Toast <span class="aka">/ snackbar</span></div>
+      <p class="def">A brief, auto-dismissing message confirming an action, without blocking the UI.</p>
+      <div class="demo"><button class="btn" id="toastBtn">Trigger toast</button></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ LAYOUT ============ -->
+<section id="layout">
+  <h2 class="sec">Layout &amp; spacing <span class="n">arranging the pieces</span></h2>
+  <p class="sec-sub">How elements are placed, framed, and spaced.</p>
+  <div class="entries">
+
+    <div class="entry">
+      <div class="term">Full-bleed <span class="aka">/ edge-to-edge</span></div>
+      <p class="def">Content that runs to the very edges of its container, with no surrounding margin.</p>
+      <div class="demo"><div class="col" style="gap:12px;width:100%">
+        <div class="frame"><div class="bleed-top">full-bleed banner</div><div style="padding:8px 12px;font-size:11px;color:var(--muted)">reaches both edges</div></div>
+        <div class="frame"><div class="inset-top">inset banner</div><div style="padding:2px 12px 8px;font-size:11px;color:var(--muted)">margin all around</div></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Gutter</div>
+      <p class="def">The consistent empty margin framing a column (and the channels between grid columns).</p>
+      <div class="demo"><div class="frame gutter-demo" style="grid-template-columns:24px 1fr 24px;height:80px">
+        <div class="g"></div><div style="background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted)">content column</div><div class="g"></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Rail</div>
+      <p class="def">A narrow, persistent vertical strip beside the main content — thinner than a full sidebar.</p>
+      <div class="demo"><div class="rail-demo" style="width:100%">
+        <div class="rail"><span class="d"></span><span class="d"></span><span class="d"></span></div>
+        <div class="main"></div>
+      </div></div>
+    </div>
+
+    <div class="entry w2">
+      <div class="term">Measure</div>
+      <p class="def">The length of a line of text. ~45–75 characters reads best; too wide and the eye loses its place returning to the next line.</p>
+      <div class="demo"><div class="col" style="gap:12px;width:100%">
+        <div><div class="lbl">good (~60ch)</div><p class="measure good">Typography exists to honor content. A comfortable measure keeps the reader's eye anchored line to line.</p></div>
+        <div><div class="lbl">too wide</div><p class="measure bad">Typography exists to honor content. A comfortable measure keeps the reader's eye anchored line to line, but when a line runs on and on like this the return sweep gets tiring and you lose your spot.</p></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Density</div>
+      <p class="def">How much information is packed per unit of space — comfortable (airy) vs compact (tight).</p>
+      <div class="demo">
+        <div class="seg" id="densitySeg"><button aria-pressed="true">Comfortable</button><button aria-pressed="false">Compact</button></div>
+        <div class="dlist comfortable" id="dlist" style="width:100%"><div class="di"><span>Session A</span><span>$12</span></div><div class="di"><span>Session B</span><span>$8</span></div><div class="di"><span>Session C</span><span>$3</span></div></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="term">z-index &amp; stacking</div>
+      <p class="def">Which overlapping element renders in front. Higher stacking order wins.</p>
+      <div class="demo"><div class="stack" style="width:100%"><div class="s s1">z1</div><div class="s s2">z2</div><div class="s s3">z3</div></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Sticky vs fixed</div>
+      <p class="def">Sticky scrolls with content until it hits an edge, then pins. Scroll this box — the header sticks.</p>
+      <div class="demo"><div class="scrollbox" style="width:100%">
+        <div class="sticky-h">Sticky header ↓ scroll me</div>
+        <div class="rowline">row 1</div><div class="rowline">row 2</div><div class="rowline">row 3</div><div class="rowline">row 4</div><div class="rowline">row 5</div><div class="rowline">row 6</div><div class="rowline">row 7</div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Above / below the fold</div>
+      <p class="def">"The fold" is the bottom of the viewport. Above it is visible without scrolling; below needs a scroll.</p>
+      <div class="demo"><div class="fold" style="width:100%">
+        <div class="content">Hero, headline, primary action live up here — seen instantly.</div>
+        <div class="foldline"></div><span class="foldlabel">the fold</span>
+        <div class="content" style="opacity:.5">…secondary content continues below, revealed on scroll.</div>
+      </div></div>
+    </div>
+
+    <div class="entry w2">
+      <div class="term">Grid system</div>
+      <p class="def">A shared column structure — classically <b>12 columns</b> with consistent gutters between them — that elements snap to, so a layout stays aligned. "Two-thirds + one-third" is just an 8-wide block beside a 4-wide one.</p>
+      <div class="demo"><div class="col" style="width:100%;gap:6px">
+        <div class="gridcols"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="gridsys"><div class="cell c12">12</div></div>
+        <div class="gridsys"><div class="cell c6">6</div><div class="cell c6">6</div></div>
+        <div class="gridsys"><div class="cell c8">8</div><div class="cell c4">4</div></div>
+        <div class="gridsys"><div class="cell c4">4</div><div class="cell c4">4</div><div class="cell c4">4</div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ STATES ============ -->
+<section id="states">
+  <h2 class="sec">States &amp; patterns <span class="n">how UI behaves</span></h2>
+  <p class="sec-sub">The different faces a component wears, and the tricks that make it feel fast.</p>
+  <div class="entries">
+
+    <div class="entry w2 states">
+      <div class="term">Empty · loading · error states</div>
+      <p class="def">The same view has to handle three realities — "nothing here yet," "still fetching," and "it broke" — and each deserves a designed screen, never a blank. Flip between them:</p>
+      <div class="demo">
+        <div class="seg" id="stateSeg"><button data-state="empty" aria-pressed="true">Empty</button><button data-state="loading" aria-pressed="false">Loading</button><button data-state="error" aria-pressed="false">Error</button></div>
+        <div class="state-body" id="stateBody"></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Skeleton loader</div>
+      <p class="def">Placeholder shapes in the rough layout of the content that's loading, usually with a shimmer sweeping across — feels faster than a spinner and prevents the page from jumping when real content lands.</p>
+      <div class="demo"><div class="skel"><span class="ln w2"></span><span class="ln w1"></span><span class="ln w3"></span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Optimistic UI</div>
+      <p class="def">Update the screen immediately as if the action already succeeded, then reconcile when the server answers — rolling back if it failed. Click the star; tick "simulate failure" to watch it revert.</p>
+      <div class="demo"><div class="opt">
+        <span class="star" id="optStar">☆</span><span class="n" id="optN">12</span><span class="status" id="optStatus"></span>
+        <label style="margin-left:auto;font-size:11px;color:var(--faint);display:flex;gap:5px;align-items:center"><input type="checkbox" id="optFail"> simulate failure</label>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Focus ring</div>
+      <p class="def">The visible outline on whatever element currently has <b>keyboard</b> focus — how you navigate without a mouse. Press <kbd>Tab</kbd> through these (the ring shows for keyboard, not mouse clicks):</p>
+      <div class="demo"><div class="focusdemo"><input placeholder="name"><input placeholder="email"><button>Save</button></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ TYPOGRAPHY ============ -->
+<section id="type">
+  <h2 class="sec">Typography <span class="n">setting the words</span></h2>
+  <p class="sec-sub">The craft of arranging type so it reads well and ranks clearly.</p>
+  <div class="entries">
+
+    <div class="entry">
+      <div class="term">Type scale <span class="aka">/ ramp</span></div>
+      <p class="def">The limited set of font sizes in a design, stepped in harmonious ratios.</p>
+      <div class="demo"><div class="scale col" style="gap:4px">
+        <div class="s"><span class="px">32</span><span style="font-size:32px;font-weight:680;line-height:1">Aa</span></div>
+        <div class="s"><span class="px">24</span><span style="font-size:24px;font-weight:660;line-height:1">Aa</span></div>
+        <div class="s"><span class="px">18</span><span style="font-size:18px;line-height:1">Aa</span></div>
+        <div class="s"><span class="px">15</span><span style="font-size:15px;line-height:1">Aa</span></div>
+        <div class="s"><span class="px">13</span><span style="font-size:13px;line-height:1">Aa</span></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Leading <span class="aka">— line-height</span></div>
+      <p class="def">The vertical space between lines of text.</p>
+      <div class="demo"><div class="lead-cols">
+        <div><div class="t">tight</div><div class="lead-tight">Leading is the space between baselines. Too tight and lines crowd.</div></div>
+        <div><div class="t">loose</div><div class="lead-loose">Leading is the space between baselines. Roomy leading breathes.</div></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Tracking &amp; kerning</div>
+      <p class="def">Tracking = uniform spacing across a run of letters. Kerning = spacing tuned between specific pairs.</p>
+      <div class="demo"><div class="col trk" style="gap:6px">
+        <div><span class="t">tight</span><span style="letter-spacing:-.04em">TRACKING</span></div>
+        <div><span class="t">normal</span><span style="letter-spacing:0">TRACKING</span></div>
+        <div><span class="t">wide</span><span style="letter-spacing:.28em">TRACKING</span></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Kerning <span class="aka">— pair spacing</span></div>
+      <p class="def">Adjusting space between particular letter pairs (like "AV", "Ta") so they sit evenly.</p>
+      <div class="demo"><div class="row kern" style="gap:20px">
+        <span><span class="off">AVTaWe</span><br><span style="font-size:10px;font-family:var(--font);color:var(--faint)">kerning off</span></span>
+        <span><span class="on">AVTaWe</span><br><span style="font-size:10px;font-family:var(--font);color:var(--faint)">kerning on</span></span>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Hierarchy</div>
+      <p class="def">Using size, weight, and color so the eye ranks elements by importance.</p>
+      <div class="demo"><div class="hier row" style="gap:16px;align-items:flex-start">
+        <div class="flat"><div class="lbl" style="margin-bottom:4px">flat</div><p>Quarterly report</p><p>Revenue overview</p><p>Revenue grew 12%.</p></div>
+        <div class="good"><div class="lbl" style="margin-bottom:4px">ranked</div><div class="h">Quarterly report</div><div class="sub">Revenue overview</div><div class="p">Revenue grew 12%.</div></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">All-caps + tracking</div>
+      <p class="def">Uppercase with widened tracking — the conventional treatment for small labels.</p>
+      <div class="demo caps col" style="gap:8px"><span class="a">Session id</span><span class="b">Session id</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Tabular numerals</div>
+      <p class="def">Digits drawn to equal width so numbers align in columns. Watch the right edges.</p>
+      <div class="demo"><div class="nums">
+        <div><div class="t">proportional</div><ol class="prop"><li>$1,204.10</li><li>$88.00</li><li>$3.72</li></ol></div>
+        <div><div class="t">tabular</div><ol class="tab"><li>$1,204.10</li><li>$88.00</li><li>$3.72</li></ol></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Wordmark</div>
+      <p class="def">A logo made purely of styled text — the brand name itself.</p>
+      <div class="demo"><span class="wordmark">near<span class="d">.blog</span></span></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Widow <span class="aka">/ orphan</span></div>
+      <p class="def">A lone word or short line stranded at the end of a paragraph (widow) or top of a column (orphan).</p>
+      <div class="demo"><p class="widow">A comfortable measure keeps the reader anchored line to <span class="w">line.</span></p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ COLOR ============ -->
+<section id="color">
+  <h2 class="sec">Color &amp; surface <span class="n">the palette</span></h2>
+  <p class="sec-sub">How color is mixed, assigned meaning, and layered.</p>
+  <div class="entries">
+
+    <div class="entry">
+      <div class="term">Tint · shade · tone</div>
+      <p class="def">A base color mixed with white (tint), black (shade), or gray (tone).</p>
+      <div class="demo"><div class="sw">
+        <div class="c" style="background:#d9a48f">tint</div>
+        <div class="c" style="background:#bf6f55">base</div>
+        <div class="c" style="background:#7e4632">shade</div>
+        <div class="c" style="background:#a07c70">tone</div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Accent vs neutral</div>
+      <p class="def">A saturated accent used sparingly for attention, against mostly neutral surroundings.</p>
+      <div class="demo"><div class="row">
+        <span class="pill">Draft</span><span class="pill">Review</span>
+        <button class="btn primary">Publish</button>
+        <span class="lbl">one accent draws the eye</span>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Semantic color</div>
+      <p class="def">Color assigned a fixed meaning: green = success, red = error, amber = warning.</p>
+      <div class="demo"><div class="sem"><span class="s ok">✓ true</span><span class="s no">✕ false</span><span class="s wn">⚠ warning</span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Foreground <span class="aka">/ "ink"</span></div>
+      <p class="def">The text/content color that sits on the background surface.</p>
+      <div class="demo"><div class="inkrow"><span class="ink" style="font-weight:600">ink — primary text</span><span class="mut">muted — secondary</span><span class="fnt">faint — tertiary</span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Wash <span class="aka">/ tint background</span></div>
+      <p class="def">A faint layer of color over a surface to distinguish it subtly.</p>
+      <div class="demo"><div class="row" style="gap:12px"><span class="wash on">accent wash</span><span class="wash off">plain surface</span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Scrim <span class="aka">/ overlay</span></div>
+      <p class="def">A semi-transparent layer over content to dim it — typically behind a modal.</p>
+      <div class="demo"><button class="btn" id="scrimBtn">Open modal</button></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Contrast ratio</div>
+      <p class="def">Measured brightness difference between text and background. WCAG AA wants ≥ 4.5:1 for body text.</p>
+      <div class="demo contrast col" style="gap:8px">
+        <div><span class="line good">Passes — high contrast</span> <span class="r">≈ 9:1 ✓</span></div>
+        <div><span class="line bad">Fails — too low</span> <span class="r">≈ 1.9:1 ✕</span></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Muted &amp; faint</div>
+      <p class="def">De-emphasized steps of the text color for secondary and tertiary information.</p>
+      <div class="demo"><div class="mini-card" style="box-shadow:none"><b>Build session index</b> <span style="color:var(--muted);font-size:12px">· 8 msgs</span><div style="color:var(--faint);font-size:11px;margin-top:2px">Jul 8 · Opus 4.8</div></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ MOTION ============ -->
+<section id="motion">
+  <h2 class="sec">Motion <span class="n">how it moves</span></h2>
+  <p class="sec-sub">Animation that gives feedback, guides attention, and adds life.</p>
+  <div class="entries">
+
+    <div class="entry">
+      <div class="term">Micro-interaction</div>
+      <p class="def">A tiny animated response to a single action — feedback or a moment of delight. Click the heart.</p>
+      <div class="demo"><div class="row"><button class="like" id="like">♡</button><span class="lbl">click me</span></div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Easing</div>
+      <p class="def">The acceleration curve of an animation. Eased motion feels natural; linear feels robotic.</p>
+      <div class="demo"><div class="col" style="gap:12px;width:100%">
+        <div><div class="lbl">linear</div><div class="track"><span class="dot linear"></span></div></div>
+        <div><div class="lbl">ease-in-out</div><div class="track"><span class="dot eased"></span></div></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Transition vs animation</div>
+      <p class="def">A transition plays A→B on a state change (hover). An animation is keyframed and can loop on its own.</p>
+      <div class="demo"><div class="col" style="gap:12px;width:100%">
+        <div><div class="lbl">transition — hover it</div><div class="hoverbox">hover</div></div>
+        <div class="row"><div class="lbl">animation — always looping</div><span class="spinner"></span></div>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Stagger</div>
+      <p class="def">Starting a set of animations at small offsets so they cascade instead of firing at once.</p>
+      <div class="demo"><div class="row" style="justify-content:space-between;width:100%">
+        <div class="stagger go" id="stagger"><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        <button class="btn" id="replay">Replay ↻</button>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ ICONS ============ -->
+<section id="icons">
+  <h2 class="sec">Iconography <span class="n">small symbols</span></h2>
+  <p class="sec-sub">The little pictographic language of an interface.</p>
+  <div class="entries">
+
+    <div class="entry">
+      <div class="term">Glyph</div>
+      <p class="def">A single icon rendered as a shape — one unit of the icon set.</p>
+      <div class="demo"><div class="icons">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-ink)"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>home</span>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--accent-ink)"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>search</span>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-ink)"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>edit</span>
+      </div></div>
+    </div>
+
+    <div class="entry">
+      <div class="term">Stroke vs fill</div>
+      <p class="def">Outline icons drawn with lines vs solid filled shapes. Pick one style and stay consistent.</p>
+      <div class="demo"><div class="icons">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" style="color:var(--accent-ink)"><path d="M12 4l2.4 5 5.6.8-4 4 1 5.6L12 16l-5 2.4 1-5.6-4-4 5.6-.8z"/></svg>stroke</span>
+        <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent-ink)"><path d="M12 4l2.4 5 5.6.8-4 4 1 5.6L12 16l-5 2.4 1-5.6-4-4 5.6-.8z"/></svg>fill</span>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">A living glossary · built in the Claude Code palette · <span id="ecount"></span> terms, each a working example. Toggle theme, top-right. Companion to your session browser.</footer>
+
+<div class="toast" id="toast">Copied to clipboard ✓</div>
+
+<script>
+// ---- mascot (pixel crab, same as the session browser) ----
+(function(){
+  var MAP=["..........w.....",".....TTTTT.www..","...TTBBBBBTT.w..","..TBBBBBBBBBT...","..BBBBBBBBBBB...","..BBBBeBBeBBB...","..BBBBeBBeBBB...","..BBBBBBBBBBB...","..SBBBBBBBBBS...","..SSBBBBBBBSS...","...L..L.L..L...","...L..L.L..L..."];
+  var COL={T:"var(--m-hi)",B:"var(--m-body)",S:"var(--m-lo)",e:"var(--m-eye)",w:"var(--m-spark)",L:"var(--m-body)"};
+  var px=8, out='<g class="m-bob">';
+  for(var y=0;y<MAP.length;y++){for(var x=0;x<MAP[y].length;x++){var ch=MAP[y][x]; if(ch===".")continue;
+    var cls=ch==="e"?' class="m-eye"':ch==="w"?' class="m-spark"':ch==="L"?(' class="m-leg-'+(x%2)+'"'):'';
+    out+='<rect x="'+(x*px)+'" y="'+(y*px)+'" width="'+px+'" height="'+px+'" rx="1" fill="'+(COL[ch]||"var(--m-body)")+'"'+cls+'/>';}}
+  out+='</g>';
+  document.getElementById('mascot').innerHTML=out;
+})();
+
+// ---- theme toggle ----
+document.getElementById('theme').addEventListener('click',function(){
+  var r=document.documentElement, cur=r.getAttribute('data-theme');
+  var dark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var next = cur ? (cur==='dark'?'light':'dark') : (dark?'light':'dark');
+  r.setAttribute('data-theme', next);
+});
+
+// ---- chips: selectable + removable ----
+document.getElementById('chipToggle').addEventListener('click',function(e){
+  var c=e.target.closest('.chip'); if(!c)return;
+  c.setAttribute('aria-pressed', c.getAttribute('aria-pressed')==='true'?'false':'true');
+  // they've discovered these are interactive — retire the nudge
+  [].forEach.call(document.querySelectorAll('.chip.invite'), function(x){ x.classList.remove('invite'); });
+});
+document.getElementById('chipRemove').addEventListener('click',function(e){
+  if(e.target.classList.contains('x')) e.target.closest('.chip').remove();
+});
+
+// ---- segmented controls ----
+function wireSeg(id, cb){ var s=document.getElementById(id); s.addEventListener('click',function(e){
+  var b=e.target.closest('button'); if(!b)return;
+  [].forEach.call(s.children,function(x){x.setAttribute('aria-pressed', x===b);}); if(cb)cb(b);
+});}
+wireSeg('seg');
+wireSeg('densitySeg', function(b){
+  var l=document.getElementById('dlist'); var compact=b.textContent.trim()==='Compact';
+  l.classList.toggle('compact',compact); l.classList.toggle('comfortable',!compact);
+});
+
+// ---- accordion (exclusive) ----
+document.getElementById('acc').addEventListener('toggle',function(e){
+  if(e.target.open){ [].forEach.call(this.querySelectorAll('details'),function(d){ if(d!==e.target)d.open=false; }); }
+},true);
+
+// ---- popover ----
+var pop=document.getElementById('pop'), popBtn=document.getElementById('popBtn');
+popBtn.addEventListener('click',function(e){e.stopPropagation(); pop.classList.toggle('open');});
+document.addEventListener('click',function(e){ if(!e.target.closest('.pop-wrap')) pop.classList.remove('open'); });
+
+// ---- toast ----
+var toast=document.getElementById('toast'), tt;
+function showToast(){ toast.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('show');},2200); }
+document.getElementById('toastBtn').addEventListener('click',showToast);
+
+// ---- like micro-interaction ----
+document.getElementById('like').addEventListener('click',function(){
+  this.classList.toggle('on'); this.textContent=this.classList.contains('on')?'♥':'♡';
+  this.classList.remove('pop'); void this.offsetWidth; this.classList.add('pop');
+});
+
+// ---- stagger replay ----
+document.getElementById('replay').addEventListener('click',function(){
+  var s=document.getElementById('stagger'); s.classList.remove('go'); void s.offsetWidth; s.classList.add('go');
+});
+
+// ---- scrim / modal ----
+document.getElementById('scrimBtn').addEventListener('click',function(){
+  var s=document.createElement('div');
+  s.style.cssText='position:fixed;inset:0;z-index:80;background:rgba(20,14,10,.55);display:flex;align-items:center;justify-content:center;animation:pop .18s ease';
+  s.innerHTML='<div style="background:var(--card);border:1px solid var(--line2);border-radius:16px;box-shadow:var(--shadow);padding:22px;max-width:280px;font-size:13px;color:var(--ink)"><b>Modal dialog</b><p style="color:var(--muted);margin:8px 0 14px">The dimmed layer behind me is the <em>scrim</em> — it focuses attention and blocks the page.</p><button class="btn primary" style="width:100%">Got it</button></div>';
+  s.addEventListener('click',function(){s.remove();});
+  document.body.appendChild(s);
+});
+
+// ---- empty / loading / error state switcher ----
+(function(){
+  var seg=document.getElementById('stateSeg'), body=document.getElementById('stateBody');
+  if(!seg||!body) return;
+  var views={
+    empty:'<div class="state-empty"><span class="ic">📭</span>No conversations yet — start one and it’ll show up here.</div>',
+    loading:'<div class="skel"><span class="ln w2"></span><span class="ln w1"></span><span class="ln w3"></span></div>',
+    error:'<div class="state-error"><span class="ic">⚠️</span>Couldn’t load. <a href="#states" onclick="return false" style="color:var(--accent-ink)">Retry</a></div>'
+  };
+  seg.addEventListener('click',function(e){var b=e.target.closest('button'); if(!b)return;
+    [].forEach.call(seg.children,function(x){x.setAttribute('aria-pressed', x===b);});
+    body.innerHTML=views[b.dataset.state];});
+  body.innerHTML=views.empty;
+})();
+
+// ---- optimistic UI ----
+(function(){
+  var star=document.getElementById('optStar'); if(!star) return;
+  var status=document.getElementById('optStatus'), nEl=document.getElementById('optN'), fail=document.getElementById('optFail');
+  var n=12, busy=false;
+  star.addEventListener('click',function(){
+    if(busy) return; busy=true;
+    var willOn=!star.classList.contains('on');
+    star.classList.toggle('on',willOn); star.textContent=willOn?'★':'☆'; n+=willOn?1:-1; nEl.textContent=n;  // optimistic
+    status.textContent='saving…'; status.className='status saving';
+    setTimeout(function(){
+      if(fail&&fail.checked){ star.classList.toggle('on',!willOn); star.textContent=!willOn?'★':'☆'; n+=willOn?-1:1; nEl.textContent=n; status.textContent='failed — reverted'; status.className='status failed'; }
+      else { status.textContent='saved ✓'; status.className='status saved'; }
+      busy=false;
+    },700);
+  });
+})();
+
+// ---- counts ----
+var n=document.querySelectorAll('.entry').length;
+document.getElementById('count').textContent = n+' terms, one live demo each.';
+document.getElementById('ecount').textContent = n;
+</script>
+</body>
+</html>

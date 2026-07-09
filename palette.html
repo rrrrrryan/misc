@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>The Claude Code Palette</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='22'%20fill='%23c1735a'/%3E%3Cg%20fill='%23fff7ee'%3E%3Crect%20x='24'%20y='40'%20width='12'%20height='12'/%3E%3Crect%20x='64'%20y='40'%20width='12'%20height='12'/%3E%3Crect%20x='30'%20y='62'%20width='40'%20height='9'%20rx='4'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  :root{
+    --font: ui-sans-serif, -apple-system, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --bg:#f3efe7; --bg2:#eae3d6; --glow1:rgba(193,115,90,.13); --glow2:rgba(212,165,116,.16);
+    --card:#fffdf8; --card2:#faf5ec; --card-h:#f6efe2;
+    --ink:#2c2822; --muted:#7d7365; --faint:#a99d8c;
+    --line:#e8e0d1; --line2:#d9cdb9;
+    --accent:#bf6f55; --accent-ink:#9c4f34; --accent-soft:#f2e3da;
+    --good:#5c8a5a; --warn:#b6823a; --bad:#b5654e;
+    --m-body:#c1735a; --m-hi:#d98d6b; --m-lo:#a3543c; --m-eye:#33261f; --m-spark:#fff6ec;
+    --shadow:0 1px 2px rgba(60,44,30,.05), 0 8px 24px -12px rgba(60,44,30,.22);
+    --shadow-sm:0 1px 2px rgba(60,44,30,.06);
+  }
+  :root[data-theme="dark"], :root:not([data-theme="light"]) .darkish{}
+  :root[data-theme="dark"]{
+    --bg:#1e1c19; --bg2:#171512; --glow1:rgba(207,125,97,.14); --glow2:rgba(150,110,70,.12);
+    --card:#282520; --card2:#2f2b25; --card-h:#332e27;
+    --ink:#ece6db; --muted:#a89d8d; --faint:#746b5d;
+    --line:#38332c; --line2:#4a443b;
+    --accent:#e0906f; --accent-ink:#eaa385; --accent-soft:rgba(224,144,111,.15);
+    --good:#7fae7c; --warn:#d0a05f; --bad:#d98b72;
+    --m-body:#cf7d61; --m-hi:#e2a487; --m-lo:#a85940; --m-eye:#1b1310; --m-spark:#fff6ec;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  }
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+    --bg:#1e1c19; --bg2:#171512; --glow1:rgba(207,125,97,.14); --glow2:rgba(150,110,70,.12);
+    --card:#282520; --card2:#2f2b25; --card-h:#332e27;
+    --ink:#ece6db; --muted:#a89d8d; --faint:#746b5d; --line:#38332c; --line2:#4a443b;
+    --accent:#e0906f; --accent-ink:#eaa385; --accent-soft:rgba(224,144,111,.15);
+    --good:#7fae7c; --warn:#d0a05f; --bad:#d98b72;
+    --m-body:#cf7d61; --m-hi:#e2a487; --m-lo:#a85940; --m-eye:#1b1310; --m-spark:#fff6ec;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.6); --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  }}
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:var(--font); font-size:15px; line-height:1.55; color:var(--ink);
+    background:radial-gradient(1100px 620px at 12% -8%,var(--glow1),transparent 60%),radial-gradient(1000px 700px at 112% 6%,var(--glow2),transparent 55%),var(--bg);
+    background-attachment:fixed; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 22px;}
+  header.top{padding:56px 0 12px; display:flex; gap:22px; align-items:center;}
+  .mascot{flex:none; filter:drop-shadow(0 6px 10px rgba(120,60,30,.18));}
+  .mascot rect{transform-box:fill-box; transform-origin:center;}
+  .m-bob{transform-box:fill-box; transform-origin:center bottom; animation:mb 2.6s ease-in-out infinite;}
+  .m-eye{animation:me 4.6s infinite;} .m-spark{animation:ms 2.9s ease-in-out infinite;}
+  @keyframes mb{0%,100%{transform:translateY(0)}50%{transform:translateY(-6%)}}
+  @keyframes me{0%,93%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.1)}}
+  @keyframes ms{0%,100%{opacity:.3;transform:scale(.65)}50%{opacity:1;transform:scale(1)}}
+  h1{margin:0; font-size:29px; font-weight:680; letter-spacing:-.02em; line-height:1.12;}
+  h1 .dim{color:var(--faint); font-weight:600;}
+  .lede{margin:9px 0 0; font-size:14px; color:var(--muted); max-width:66ch;}
+  .lede code{font-family:var(--mono); font-size:.85em; background:var(--card2); border:1px solid var(--line); padding:.05em .35em; border-radius:5px;}
+  .theme{margin-left:auto; align-self:flex-start; display:inline-flex; align-items:center; gap:7px; height:34px; padding:0 13px;
+    font:inherit; font-size:13px; color:var(--muted); background:var(--card); border:1px solid var(--line2); border-radius:9px; cursor:pointer; box-shadow:var(--shadow-sm);}
+  .theme:hover{color:var(--ink); border-color:var(--accent);}
+  .hint{margin:18px 0 0; font-size:12.5px; color:var(--faint); line-height:1.65; max-width:80ch;}
+  .hint b{color:var(--accent-ink);}
+
+  section{margin:38px 0 0;}
+  h2.sec{margin:0 0 3px; font-size:19px; font-weight:660; letter-spacing:-.01em; display:flex; align-items:baseline; gap:10px;}
+  h2.sec .n{font-size:12px; color:var(--faint);}
+  .sec-sub{margin:0 0 16px; font-size:13px; color:var(--faint); max-width:70ch;}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:15px;}
+  .tok{background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column;}
+  .tok.wide{grid-column:1/-1;}
+  @media(min-width:680px){ .tok.w2{grid-column:span 2;} }
+  .sw{height:84px; cursor:pointer; position:relative; border-bottom:1px solid var(--line);}
+  .sw::after{content:"copy var"; position:absolute; right:9px; bottom:8px; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase; opacity:0; transition:opacity .15s; color:var(--faint); background:var(--card); padding:1px 5px; border-radius:4px;}
+  .sw:hover::after{opacity:1;}
+  .tok .body{padding:12px 14px;}
+  .var{font-family:var(--mono); font-weight:600; font-size:13px; color:var(--accent-ink);}
+  .hexes{display:flex; gap:6px; margin:7px 0 9px; flex-wrap:wrap;}
+  .hex{display:inline-flex; align-items:center; gap:5px; font-family:var(--mono); font-size:11px; color:var(--muted); background:var(--card2); border:1px solid var(--line); border-radius:7px; padding:2px 8px; cursor:pointer; transition:border-color .12s, color .12s;}
+  .hex:hover{border-color:var(--accent); color:var(--ink);}
+  .hex.active{border-color:var(--accent); color:var(--accent-ink); font-weight:600;}
+  .hex .k{color:var(--faint); font-size:9.5px; text-transform:uppercase; letter-spacing:.05em;}
+  .hex.done{border-color:var(--good); color:var(--good);}
+  .role{font-size:12.5px; color:var(--muted); line-height:1.5;}
+  .ex{margin-top:11px; padding-top:11px; border-top:1px dashed var(--line); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .ex-lbl{font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.05em; width:100%; margin-bottom:-2px;}
+
+  /* example primitives */
+  .exbox{border-radius:8px; padding:9px 11px; font-size:11.5px; display:inline-flex; align-items:center; gap:6px;}
+  .btnx{height:32px; padding:0 14px; border:0; border-radius:8px; font:inherit; font-size:13px; background:var(--accent); color:#fff; cursor:pointer;}
+  .pillx{display:inline-flex; align-items:center; height:22px; padding:0 10px; font-size:11.5px; border-radius:999px; color:var(--muted); background:var(--card2); border:1px solid var(--line);}
+  .chipx{display:inline-flex; align-items:center; height:24px; padding:0 11px; font-size:12px; border-radius:999px; background:var(--accent-soft); color:var(--accent-ink); font-weight:600;}
+  .cardx{background:var(--card); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow); padding:10px 12px; font-size:12px;}
+  .inputx{height:32px; border:1px solid var(--line2); border-radius:8px; background:var(--card2); padding:0 10px; font:inherit; font-size:12.5px; color:var(--ink);}
+  .semx{display:inline-flex; align-items:center; gap:5px; font-size:12px; padding:3px 10px; border-radius:8px;}
+  .av{width:34px; height:34px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; color:#fff; font-weight:680; font-size:14px; box-shadow:inset 0 -2px 4px rgba(0,0,0,.14);}
+  .atmo{height:120px; border-radius:12px; border:1px solid var(--line); background:radial-gradient(600px 300px at 12% -20%,var(--glow1),transparent 60%),radial-gradient(500px 320px at 115% 0%,var(--glow2),transparent 55%),var(--bg); display:flex; align-items:flex-end; padding:12px; font-size:11.5px; color:var(--muted);}
+  .gradx{height:54px; border-radius:10px; background:linear-gradient(90deg,var(--accent),var(--m-hi)); display:flex; align-items:center; padding:0 14px; color:#fff; font-size:12px; font-weight:500;}
+
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(140%); z-index:60; background:var(--ink); color:var(--bg); padding:10px 16px; border-radius:10px; font-size:13px; font-family:var(--mono); box-shadow:0 10px 30px -8px rgba(0,0,0,.4); transition:transform .3s cubic-bezier(.2,.8,.2,1);}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  footer{max-width:1040px; margin:0 auto; padding:34px 22px 70px; font-size:12.5px; color:var(--faint);}
+  footer code{font-family:var(--mono); color:var(--muted);}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <svg class="mascot" id="mascot" width="118" height="100" viewBox="0 0 118 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+    <div>
+      <h1>The Claude Code <span class="dim">palette</span></h1>
+      <p class="lede">Every color token behind the session browser, glossary, and Cursor viewer — warm cream surfaces, a terracotta&nbsp;clay accent, and one little crab. Each has a <b style="color:var(--accent-ink)">light</b> and a <b style="color:var(--accent-ink)">dark</b> hex; all are CSS custom properties like <code>var(--accent)</code>.</p>
+    </div>
+    <button class="theme" id="theme">◐ Theme</button>
+  </header>
+  <div class="hint">👆 Click a <b>swatch</b> to copy its <code style="font-family:var(--mono)">var()</code>, or a <b>hex chip</b> to copy the value. The chip matching the current theme is highlighted — toggle the theme, top-right, to watch the whole palette shift.</div>
+</div>
+
+<main class="wrap" id="main"></main>
+
+<footer class="wrap">Palette source of truth: <code>~/code/claude-sessions/assets_data.py</code> (light <code>:root</code> + dark <code>_DARK_VARS</code>). Companion to the design glossary. 🎨</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+// ---- mascot ----
+(function(){
+  var MAP=["..........w.....",".....TTTTT.www..","...TTBBBBBTT.w..","..TBBBBBBBBBT...","..BBBBBBBBBBB...","..BBBBeBBeBBB...","..BBBBeBBeBBB...","..BBBBBBBBBBB...","..SBBBBBBBBBS...","..SSBBBBBBBSS...","...L..L.L..L...","...L..L.L..L..."];
+  var C={T:"var(--m-hi)",B:"var(--m-body)",S:"var(--m-lo)",e:"var(--m-eye)",w:"var(--m-spark)",L:"var(--m-body)"};
+  var px=7,o='<g class="m-bob">';
+  for(var y=0;y<MAP.length;y++)for(var x=0;x<MAP[y].length;x++){var c=MAP[y][x];if(c===".")continue;
+    var cl=c==="e"?' class="m-eye"':c==="w"?' class="m-spark"':'';
+    o+='<rect x="'+(x*px)+'" y="'+(y*px)+'" width="'+px+'" height="'+px+'" rx="1" fill="'+(C[c]||"var(--m-body)")+'"'+cl+'/>';}
+  document.getElementById('mascot').innerHTML=o+'</g>';
+})();
+
+// ---- palette data ----
+var GROUPS=[
+ {name:"Backgrounds &amp; atmosphere", sub:"The warm canvas everything floats on, plus the soft glows that give the page its heat.", toks:[
+   {v:"--bg", l:"#f3efe7", d:"#1e1c19", role:"Page background — the base cream (light) / near-black bark (dark).", ex:'<div class="exbox" style="background:var(--bg);border:1px solid var(--line);color:var(--muted)">page base</div>'},
+   {v:"--bg2", l:"#eae3d6", d:"#171512", role:"Recessed background — demo stages, inset code boxes, the darker well behind content.", ex:'<div class="exbox" style="background:var(--bg2);color:var(--muted)">recessed well</div>'},
+   {v:"--glow1", l:"rgba(193,115,90,.13)", d:"rgba(207,125,97,.14)", role:"Top-left radial glow — a soft clay warmth bleeding in from the corner.", ex:'<div class="exbox" style="background:var(--glow1);color:var(--ink)">corner glow</div>'},
+   {v:"--glow2", l:"rgba(212,165,116,.16)", d:"rgba(150,110,70,.12)", role:"Top-right radial glow — a honey-amber counterpart to --glow1.", ex:'<div class="exbox" style="background:var(--glow2);color:var(--ink)">corner glow</div>'},
+   {v:"(recipe)", wide:true, l:"—", d:"—", role:"The actual page background: the base color with both radial glows layered over it. This is what you\'re looking at right now.", ex:'<div class="atmo" style="width:100%">radial-gradient(--glow1) + radial-gradient(--glow2) + var(--bg)</div>'},
+ ]},
+ {name:"Surfaces", sub:"The lifted planes — cards, pills, fields — that sit above the background.", toks:[
+   {v:"--card", l:"#fffdf8", d:"#282520", role:"Primary surface — repo cards, panels, buttons, the transcript meta box.", ex:'<div class="cardx">a floating card</div>'},
+   {v:"--card2", l:"#faf5ec", d:"#2f2b25", role:"Secondary surface — pills, inset fields, tool code boxes, chip backgrounds.", ex:'<span class="pillx">45 msg</span> <input class="inputx" style="width:96px" placeholder="field">'},
+   {v:"--card-h", l:"#f6efe2", d:"#332e27", role:"Hover state — the gentle lift under a row or card on hover.", ex:'<div class="exbox" style="background:var(--card-h);border:1px solid var(--line);color:var(--muted)">row : hover</div>'},
+ ]},
+ {name:"Ink — text", sub:"Three steps of warm text, from primary down to the faintest label.", toks:[
+   {v:"--ink", l:"#2c2822", d:"#ece6db", role:"Primary text — titles, body copy, the words that matter most.", ex:'<span style="color:var(--ink);font-size:14px;font-weight:600">Primary ink</span>'},
+   {v:"--muted", l:"#7d7365", d:"#a89d8d", role:"Secondary text — descriptions, metadata, supporting copy.", ex:'<span style="color:var(--muted);font-size:13px">Muted — secondary</span>'},
+   {v:"--faint", l:"#a99d8c", d:"#746b5d", role:"Tertiary text — tiny labels, timestamps, hints, placeholders.", ex:'<span style="color:var(--faint);font-size:12px">Faint — tertiary</span>'},
+ ]},
+ {name:"Lines", sub:"The two hairline weights that separate and frame.", toks:[
+   {v:"--line", l:"#e8e0d1", d:"#38332c", role:"Hairline — dividers, card borders, dotted texture, subtle separators.", ex:'<div class="exbox" style="border:1px solid var(--line);color:var(--muted)">1px --line border</div>'},
+   {v:"--line2", l:"#d9cdb9", d:"#4a443b", role:"Stronger line — input, button, chip, and toolbar borders that need more presence.", ex:'<input class="inputx" placeholder="--line2 border">'},
+ ]},
+ {name:"The accent — terracotta clay", sub:"The signature. One warm clay color, used sparingly, that ties the whole family together.", toks:[
+   {v:"--accent", l:"#bf6f55", d:"#e0906f", role:"The clay accent — primary buttons, active fills, focus rings, dots, the mascot body.", ex:'<button class="btnx">Publish</button>'},
+   {v:"--accent-ink", l:"#9c4f34", d:"#eaa385", role:"Accent text — links, active labels, cost figures, the tool names, the wordmark accent.", ex:'<span style="color:var(--accent-ink);font-weight:600">$88.27</span> &nbsp;<a href="#" style="color:var(--accent-ink);text-decoration:underline">a link</a>'},
+   {v:"--accent-soft", l:"#f2e3da", d:"rgba(224,144,111,.15)", role:"Accent wash — selected chips, cost pills, the tint behind highlighted things.", ex:'<span class="chipx">selected</span> <span class="chipx">≈ $46</span>'},
+   {v:"(gradient)", w2:true, l:"--accent", d:"--m-hi", role:"The signature gradient — the accent flowing into the mascot highlight. Used on full-bleed banners.", ex:'<div class="gradx" style="width:100%">linear-gradient(90deg, --accent, --m-hi)</div>'},
+ ]},
+ {name:"Semantic", sub:"Color assigned meaning — reserved for status, never decoration.", toks:[
+   {v:"--good", l:"#5c8a5a", d:"#7fae7c", role:"Success / true / positive — the “Copied’’ confirm, boolean true, green output.", ex:'<span class="semx" style="color:var(--good);background:color-mix(in srgb,var(--good) 15%,transparent)">✓ true</span>'},
+   {v:"--warn", l:"#b6823a", d:"#d0a05f", role:"Warning / caution — the rough-estimate disclaimer, system notes.", ex:'<span class="semx" style="color:var(--warn);background:color-mix(in srgb,var(--warn) 16%,transparent)">⚠ warning</span>'},
+   {v:"(negatives)", sw:"#b5654e", w2:true, l:"—", d:"—", role:"Negative states use two <b>literal warm reds</b> — not CSS variables, and the same in both themes: <b style=\"color:#b5654e\">#b5654e</b> for tool errors &amp; diff deletions, and <b style=\"color:#c0563d\">#c0563d</b> for boolean false. (Everything else on this page is a real <code style=\"font-family:var(--mono);font-size:.85em\">--var</code>.)", ex:'<span class="hex" data-copy="#b5654e"><span style="width:11px;height:11px;border-radius:3px;background:#b5654e;display:inline-block"></span>#b5654e</span><span class="hex" data-copy="#c0563d"><span style="width:11px;height:11px;border-radius:3px;background:#c0563d;display:inline-block"></span>#c0563d</span><span class="semx" style="color:#b5654e;background:color-mix(in srgb,#b5654e 15%,transparent)">✕ error</span><span class="semx" style="color:#c0563d;background:color-mix(in srgb,#c0563d 15%,transparent)">false</span>'},
+ ]},
+ {name:"The mascot 🦀", sub:"Five hand-picked hexes that make the little pixel crab. Toggle the theme and watch him warm up.", toks:[
+   {v:"--m-body", l:"#c1735a", d:"#cf7d61", role:"The crab’s body — the main terracotta fill and his legs.", ex:'<span class="exbox" style="background:var(--m-body);color:#fff">body</span>'},
+   {v:"--m-hi", l:"#d98d6b", d:"#e2a487", role:"Top highlight — the lighter clay along his domed back.", ex:'<span class="exbox" style="background:var(--m-hi);color:#5a2f1e">highlight</span>'},
+   {v:"--m-lo", l:"#a3543c", d:"#a85940", role:"Bottom shadow — the darker clay grounding his underside.", ex:'<span class="exbox" style="background:var(--m-lo);color:#fff">shadow</span>'},
+   {v:"--m-eye", l:"#33261f", d:"#1b1310", role:"Eyes — two dark warm-brown pixels (that blink).", ex:'<span class="exbox" style="background:var(--m-eye);color:#fff">eyes</span>'},
+   {v:"--m-spark", l:"#fff6ec", d:"#fff6ec", role:"The sparkle — a single warm-white glint that twinkles above him.", ex:'<span class="exbox" style="background:var(--m-spark);color:#5a2f1e;border:1px solid var(--line)">sparkle</span>'},
+ ]},
+];
+
+// avatar categorical palette (fixed in both themes)
+var AVATARS=[["#bf6f55","terracotta"],["#c98a3f","amber"],["#7d8a4e","olive"],["#4f8a86","teal"],["#6a7bb0","blue"],["#9a6bab","purple"],["#b0637f","rose"],["#7a8b5a","moss"],["#c07a4e","clay"],["#5f9b6e","green"]];
+
+// ---- render ----
+function tokCard(t){
+  var wide = t.wide ? " wide" : (t.w2 ? " w2" : "");
+  var swatch = t.split ? '<div class="sw rx" data-prop="bg" data-l="'+t.split[0]+'" data-d="'+t.split[1]+'" style="background:'+t.split[0]+'" data-copy="'+t.split[0]+'" title="tracks the current theme — click to copy the shown hex"></div>' :
+    t.sw ? '<div class="sw" style="background:'+t.sw+'" data-copy="'+t.sw+'" title="click to copy '+t.sw+'"></div>' :
+    t.v.charAt(0)==="(" ? "" :
+    '<div class="sw" style="background:var('+t.v+')" data-copy="var('+t.v+')" title="click to copy var('+t.v+')"></div>';
+  var hexes = (!t.l || t.l==="—") ? "" :
+    '<div class="hexes">'+
+      '<span class="hex" data-light data-copy="'+t.l+'"><span class="k">light</span>'+t.l+'</span>'+
+      '<span class="hex" data-dark data-copy="'+t.d+'"><span class="k">dark</span>'+t.d+'</span></div>';
+  var ex = t.ex ? '<div class="ex"><span class="ex-lbl">in use</span>'+t.ex+'</div>' : '';
+  return '<div class="tok'+wide+'">'+swatch+'<div class="body">'+
+    '<div class="var">'+t.v+'</div>'+hexes+
+    '<div class="role">'+t.role+'</div>'+ex+'</div></div>';
+}
+var main=document.getElementById('main'), htmlOut="";
+GROUPS.forEach(function(g){
+  htmlOut+='<section><h2 class="sec">'+g.name+'</h2><p class="sec-sub">'+g.sub+'</p><div class="grid">'+
+    g.toks.map(tokCard).join("")+'</div></section>';
+});
+// avatar palette section
+htmlOut+='<section><h2 class="sec">Avatar palette <span class="n">categorical</span></h2>'+
+  '<p class="sec-sub">Ten fixed hues (same in light &amp; dark) hashed from a repo name to color its avatar square — so each project reads at a glance. Click any swatch to copy.</p>'+
+  '<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">'+
+  AVATARS.map(function(a){return '<div class="tok"><div class="sw" style="background:'+a[0]+';height:64px" data-copy="'+a[0]+'"></div>'+
+    '<div class="body" style="padding:10px 12px"><div class="var" style="color:var(--ink);font-size:12px">'+a[1]+'</div>'+
+    '<div class="hexes" style="margin:5px 0 0"><span class="hex" data-copy="'+a[0]+'">'+a[0]+'</span>'+
+    '<span class="av" style="background:'+a[0]+';width:26px;height:26px;font-size:12px;margin-left:auto">'+a[1].charAt(0).toUpperCase()+'</span></div></div></div>';}).join("")+
+  '</div></section>';
+// ---- the REAL Claude.app theme (extracted from /Applications/Claude.app) ----
+var APP_GROUPS=[
+ {name:"Signature clay 🎨", sub:"The famous Claude clay — the accent the whole brand is built on. Same in light &amp; dark. (My viewer’s --accent is a warmer cousin of this.)", toks:[
+   {sw:"#d97757", v:"--claude-accent-clay", l:"#d97757", d:"#d97757", role:"<b>The</b> Claude clay — the terracotta accent across Claude Code and the desktop app.", ex:'<button class="btnx" style="background:#d97757">Clay button</button>'},
+   {sw:"#c86848", v:"--clay-hover", l:"#c86848", d:"#c86848", role:"Clay, hover state."},
+   {sw:"#c6613f", v:"--clay-emphasized", l:"#c6613f", d:"#c6613f", role:"Clay, pressed / emphasized."},
+   {sw:"#f4f3ee", v:"--cream", l:"#f4f3ee", d:"#f4f3ee", role:"The signature warm cream — Claude’s light background."},
+ ]},
+ {name:"App surfaces &amp; text", sub:"The desktop app’s background and text ramp. Swatches &amp; examples track the current theme — toggle up top to watch them flip between the real light and dark values.", toks:[
+   {split:["#faf9f5","#262624"], v:"--claude-background-color", l:"#faf9f5", d:"#262624", role:"App background — cream (light) / warm charcoal (dark)."},
+   {split:["#29261b","#f5f4ef"], v:"--claude-text-100", l:"#29261b", d:"#f5f4ef", role:"Primary text."},
+   {split:["#3d3929","#e5e5e2"], v:"--claude-text-200", l:"#3d3929", d:"#e5e5e2", role:"Strong text."},
+   {split:["#656358","#b8b5a9"], v:"--claude-text-400", l:"#656358", d:"#b8b5a9", role:"Muted text."},
+   {split:["#737163","#a6a39a"], v:"--claude-secondary-color", l:"#737163", d:"#a6a39a", role:"Secondary UI text."},
+   {split:["#535146","#ceccc5"], v:"--claude-description-text", l:"#535146", d:"#ceccc5", role:"Descriptions / help text."},
+ ]},
+ {name:"Semantic — the colored text you see", sub:"What the syntax highlighting &amp; status text resolve to (light | dark). Note: the exact per-keyword scope map isn’t extractable from the compiled app, so these are the semantic tokens the code colors draw from.", toks:[
+   {split:["#184f95","#6da7ec"], v:"--text-accent · blue", l:"#184f95", d:"#6da7ec", role:"Keywords, commands, filenames, links — the blue in <code>cd</code> / <code>python3</code> and the git-graph dot.", ex:'<code class="rx" data-prop="fg" data-l="#184f95" data-d="#6da7ec" style="font-family:var(--mono)">python3</code>'},
+   {split:["#006300","#0ca30c"], v:"--text-success · green", l:"#006300", d:"#0ca30c", role:"Strings &amp; paths — the green <code>serve.py</code>.", ex:'<code class="rx" data-prop="fg" data-l="#006300" data-d="#0ca30c" style="font-family:var(--mono)">serve.py</code>'},
+   {split:["#8e2626","#ec7e7e"], v:"--text-danger · red", l:"#8e2626", d:"#ec7e7e", role:"Errors in text.", ex:'<code class="rx" data-prop="fg" data-l="#8e2626" data-d="#ec7e7e" style="font-family:var(--mono)">error</code>'},
+   {split:["#734500","#db9300"], v:"--text-warning · yellow", l:"#734500", d:"#db9300", role:"Cautions."},
+   {split:["#4a3aa7","#a096eb"], v:"--text-pro · violet", l:"#4a3aa7", d:"#a096eb", role:"The Pro / premium violet accent."},
+ ]},
+ {name:"Diff &amp; git graph", sub:"The +/- of a diff and the git-graph node colors — exactly what you pointed at. Light | dark.", toks:[
+   {split:["#1e9e3c","#32d74b"], v:"--text-git-added", l:"#1e9e3c", d:"#32d74b", role:"Additions — the green <code>+250</code>.", ex:'<code class="rx" data-prop="fg" data-l="#1e9e3c" data-d="#32d74b" style="font-family:var(--mono)">+250</code>'},
+   {split:["#cd2054","#ff2c56"], v:"--text-git-removed", l:"#cd2054", d:"#ff2c56", role:"Deletions — the red <code>-0</code>.", ex:'<code class="rx" data-prop="fg" data-l="#cd2054" data-d="#ff2c56" style="font-family:var(--mono)">-0</code>'},
+   {split:["#855fd6","#a67dff"], v:"--fill-git-merged", l:"#855fd6", d:"#a67dff", role:"Merged — the purple git-graph node.", ex:'<span class="rx" data-prop="bg" data-l="#855fd6" data-d="#a67dff" style="display:inline-block;width:14px;height:14px;border-radius:50%"></span> <span style="color:var(--faint);font-size:11px">graph node</span>'},
+   {split:["#98801f","#ffd014"], v:"--text-git-modified", l:"#98801f", d:"#ffd014", role:"Modified."},
+   {split:["#c5621b","#fa832e"], v:"--text-git-conflicting", l:"#c5621b", d:"#fa832e", role:"Conflicting."},
+   {split:["#ff3a30","#ff6159"], v:"--text-git-closed", l:"#ff3a30", d:"#ff6159", role:"Closed."},
+   {split:["#737373","#a6a6a6"], v:"--text-git-draft", l:"#737373", d:"#a6a6a6", role:"Draft."},
+ ]},
+];
+var RAMPS=[
+ ["blue",["#cde2fb","#9ec5f4","#6da7ec","#3987e5","#256abf","#184f95","#0d366b"]],
+ ["aqua (teal)",["#bfebdb","#7ad7b4","#3bbd8c","#199e70","#0f7e5c","#065f49"]],
+ ["green",["#55bf50","#0ca30c","#008300","#006300"]],
+ ["yellow",["#db9300","#b77700","#945d00","#734500"]],
+ ["orange",["#ec835a","#d95926","#ae461c","#863311"]],
+ ["red",["#ec7e7e","#e34948","#b93535","#8e2626"]],
+ ["violet",["#a096eb","#8173e3","#6250d6","#4a3aa7"]],
+ ["gray",["#a5a49a","#898781","#6d6b67","#52514e"]],
+];
+htmlOut+='<section><h2 class="sec">Straight from Claude.app <span class="n">the real app tokens</span></h2>'+
+  '<p class="sec-sub">Bonus round: these aren’t my viewer’s CSS — they’re the actual design tokens I pulled out of <code>/Applications/Claude.app</code>, i.e. the colors you see in the terminal, diffs, and git graph. The clay <code>#d97757</code> is <i>the</i> Claude accent.</p></section>';
+APP_GROUPS.forEach(function(g){
+  htmlOut+='<section><h2 class="sec">'+g.name+'</h2><p class="sec-sub">'+g.sub+'</p><div class="grid">'+g.toks.map(tokCard).join("")+'</div></section>';
+});
+htmlOut+='<section><h2 class="sec">Base scales <span class="n">the primitive ramps</span></h2>'+
+  '<p class="sec-sub">Every semantic token above resolves to a step on one of these hue ramps (light → dark). Click any swatch to copy its hex.</p>'+
+  '<div style="display:flex;flex-direction:column;gap:12px">'+
+  RAMPS.map(function(r){return '<div><div class="ex-lbl" style="margin-bottom:5px">'+r[0]+'</div><div style="display:flex;border-radius:9px;overflow:hidden;border:1px solid var(--line)">'+
+    r[1].map(function(h){return '<span title="'+h+'" data-copy="'+h+'" style="flex:1;height:44px;cursor:pointer;background:'+h+'"></span>';}).join("")+'</div></div>';}).join("")+
+  '</div></section>';
+
+main.innerHTML=htmlOut;
+
+// ---- theme toggle + active-hex highlight ----
+function currentDark(){
+  var t=document.documentElement.getAttribute('data-theme');
+  if(t) return t==='dark';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+function applyRx(){
+  var dark=currentDark();
+  document.querySelectorAll('.rx').forEach(function(el){
+    var v = dark ? el.getAttribute('data-d') : el.getAttribute('data-l');
+    if(!v) return;
+    if(el.getAttribute('data-prop')==='fg') el.style.color=v; else el.style.background=v;
+    if(el.classList.contains('sw')) el.setAttribute('data-copy', v);
+  });
+}
+function markActive(){
+  var dark=currentDark();
+  document.querySelectorAll('.hex[data-light]').forEach(function(x){x.classList.toggle('active',!dark);});
+  document.querySelectorAll('.hex[data-dark]').forEach(function(x){x.classList.toggle('active',dark);});
+  applyRx();
+}
+document.getElementById('theme').addEventListener('click',function(){
+  var r=document.documentElement, cur=r.getAttribute('data-theme');
+  r.setAttribute('data-theme', cur ? (cur==='dark'?'light':'dark') : (currentDark()?'light':'dark'));
+  markActive();
+});
+markActive();
+
+// ---- copy ----
+var toast=document.getElementById('toast'), tt;
+function showToast(msg){ toast.textContent='Copied '+msg; toast.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('show');},1600); }
+function copy(v, el){
+  var done=function(){ showToast(v); if(el){el.classList.add('done'); setTimeout(function(){el.classList.remove('done');},900);} };
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(v).then(done,function(){legacy(v);done();}); }
+  else { legacy(v); done(); }
+}
+function legacy(v){var ta=document.createElement('textarea');ta.value=v;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
+document.getElementById('main').addEventListener('click',function(e){
+  var el=e.target.closest('[data-copy]'); if(!el)return;
+  copy(el.getAttribute('data-copy'), el.classList.contains('hex')?el:null);
+});
+</script>
+</body>
+</html>
